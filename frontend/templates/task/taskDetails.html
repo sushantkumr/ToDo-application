@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Application</title>
+
+    <link rel="stylesheet" href="/static/css/semantic.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script type="text/javascript" src="/static/js/libs/jQuery.min.js"></script>
+  	<script type="text/javascript" src="/static/js/taskDetails.js"></script>
+  </head>
+<body>
+	<h1 align="center">ToDo Application</h1>
+	<h3>Task Details</h3>
+	<div class="ui grid">
+		 <div class="four wide column">
+			<table class="ui compact celled striped definition table">
+				<thead>
+				</thead>
+			  	<tbody>
+				    <tr>
+				    	<th>Title</th>
+						<td id="titleData"></td>
+				    </tr>
+				    <tr>
+				    	<th>Description</th>
+						<td id="descriptionData"></td>
+				    </tr>
+				    <tr>
+				    	<th>Due Date</th>
+						<td id="dueDateData"></td>
+				    </tr>
+				    <tr>
+				    	<th>Alert time</th>
+						<td id="alertTimeData"></td>
+				    </tr>
+				    <tr>
+				    	<th>Status</th>
+							<td id="statusData"></td>
+				    </tr>
+				</tbody>
+			</table>
+		 </div>
+  		 <div class="four wide left floated column">
+			  <button class="ui button negative" onclick="deleteTask()">Delete</button>
+			  <button class="ui button primary" onclick="toggleTaskStatus()">Toggle task status</button>
+		 </div>
+		 <div class="four wide right floated column">
+			  <a href="{% url 'home' %}"><button class="ui button primary">Home</button></a>
+			  <a href="{% url 'create_task' %}" target="_blank"><button class="ui button green">New Sub-task</button></a>
+		 </div>
+	</div>
+	
+	<h3>Sub tasks</h3>
+	<div id="tasks">		
+	</div>
+</body>
+</html>

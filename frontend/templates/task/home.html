@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Application</title>
+
+    <link rel="stylesheet" href="/static/css/semantic.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script type="text/javascript" src="/static/js/libs/jQuery.min.js"></script>
+    <script type="text/javascript" src="/static/js/libs/semantic.min.js"></script>    
+  	<script type="text/javascript" src="/static/js/home.js"></script>
+  </head>
+<body>
+	<h1 align="center">ToDo Application</h1>
+
+        <div style="width: 25em">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="ui {{message.tags}} message">
+              <div class="header">
+                {{ message }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+        {% block content %}{% endblock %}
+
+  	<div class="ui search">
+  		<input id="searchByTitle" class="prompt" type="text" placeholder="Search for tasks based on title" style="width: 20em">
+      &nbsp;
+
+      <select id="searchByPeriod" class="ui dropdown">
+        <option value="">Period</option>
+        <option value="today">Today</option>
+        <option value="thisweek">This week</option>
+        <option value="nextweek">Next week</option>
+        <option value="overdue">Overdue</option>
+      </select>
+        &nbsp;
+
+      <button id="getTasks" class="ui button s-m-t-2 primary" onclick="getTasks()">
+         Search
+      </button>
+      <a href="{% url 'create_task' %}" target="_blank" style="float: right;"><button id="newTask" class="ui button s-m-t-2 green">
+         New Task
+      </button></a>
+    </div>
+	<br>
+	<br>
+  <h4 id="totalTasks"></h4>
+	<div id="tasks" class="ui five cards">
+	</div>
+</body>
+</html>
