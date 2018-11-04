@@ -8,21 +8,17 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 
 
-class UpdateValidation(Validation):
-    def is_valid(self, bundle, request=None):
-        if not bundle.data:
-            return {'message': 'Incorrect request'}
+'''
+    Sample URLs for testing in PostMan
 
-        for key, value in bundle.data.items():
-            if key not in ['status', 'pk', 'deleted']:
-                return {'message': 'Only status/deleted status of task can be updated'}
+    With title: http://0.0.0.0:8080/api/v1/task/?title__contains=123
+    With period: http://0.0.0.0:8080/api/v1/task/?period=overdue
+    Task details: http://0.0.0.0:8080/api/v1/task/1
+    With both title and period: http://0.0.0.0:8080/api/v1/task/?title__contains=Qwerty&period=overdue
+'''
 
 
 # Gets list of tasks and to search based on title and different time periods
-# http://0.0.0.0:8080/api/v1/task/?title__contains=123
-# http://0.0.0.0:8080/api/v1/task/?period=overdue
-# http://0.0.0.0:8080/api/v1/task/1
-# http://0.0.0.0:8080/api/v1/task/?title__contains=Qwerty&period=overdue
 class TaskResource(ModelResource):
     class Meta:
         queryset = TodoTask.objects.order_by('due_date').filter(deleted=False)
@@ -31,7 +27,7 @@ class TaskResource(ModelResource):
         limit = 50
         filtering = {
             'title': ['exact', 'startswith', 'endswith', 'contains'],
-            'parent_task_id_id': ['exact']
+            'parent_task_id': ['exact']
         }
 
     # If query contains "period" override get_object_list()

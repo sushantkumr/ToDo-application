@@ -12,7 +12,11 @@
   </head>
 <body>
 	<h1 align="center">ToDo Application</h1>
-	<h3>Create a new Task</h3>
+  {% if parent_task_id %}
+	   <h3>Create a new Sub-Task</h3>
+  {% else %}
+    <h3>Create a new Task</h3>
+  {% endif %}
   <div class="ui grid">
       <div class="six wide column">
         <form id="newTask" class="ui form" action="" method="post">

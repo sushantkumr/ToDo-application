@@ -48,12 +48,13 @@
 		 </div>
 		 <div class="four wide right floated column">
 			  <a href="{% url 'home' %}"><button class="ui button primary">Home</button></a>
-			  <a href="{% url 'create_task' %}" target="_blank"><button class="ui button green">New Sub-task</button></a>
+			  <a href="{% url 'create_sub_task' id %}" ><button class="ui button green">New Sub-task</button></a>
 		 </div>
 	</div>
 	
 	<h3>Sub tasks</h3>
-	<div id="tasks">		
+  	<h4 id="totalSubTasks"></h4>
+	<div id="subTasks">		
 	</div>
 </body>
 </html>

@@ -14,14 +14,14 @@ def home(request):
 
 
 def task_details(request, id):
-    return render(request, 'task/taskDetails.html')
+    return render(request, 'task/taskDetails.html', {'id': id})
 
 
 def create_task(request, id=None):
-    return render(request, 'task/newTask.html')
+    return render(request, 'task/newTask.html', {'parent_task_id': id})
 
 
-# 24*60*60*14 = 1209600
+# 24*60*60*14 = 1209600 (14 days)
 @background(schedule=1209600)
 def hard_delete_records():
     print("Deleted records")

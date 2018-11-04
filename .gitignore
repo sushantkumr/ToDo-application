@@ -2,6 +2,7 @@
 __pycache__/
 frontend/__pycache__/
 task/__pycache__/
+task/migrations/__pycache__/
 todo_app/__pycache__/
 *.py[cod]
 *$py.class
