@@ -1,7 +1,5 @@
-from django.utils import timezone
 from django.db import models
 from django.urls import reverse
-import datetime
 
 """
 ('PND', 'Pending')
@@ -19,7 +17,7 @@ class TodoTask(models.Model):
                 null=True, blank=True,
     )
     completed = models.BooleanField(default=False)
-    alert_time = models.TimeField(blank=True, null=True)  # Default of 1 hour
+    alert_time = models.TimeField(blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):

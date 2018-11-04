@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 frontend/__pycache__/
-todo/__pycache__/
+task/__pycache__/
 todo_app/__pycache__/
 *.py[cod]
 *$py.class
@@ -105,3 +105,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+db.sqlite3

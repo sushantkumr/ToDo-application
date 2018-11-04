@@ -14,10 +14,10 @@
 <body>
 	<h1 align="center">ToDo Application</h1>
 
-        <div style="width: 25em">
+        <div style="width: 35em">
         {% if messages %}
           {% for message in messages %}
-            <div class="ui {{message.tags}} message">
+            <div class="ui {{message.tags}} message small">
               <div class="header">
                 {{ message }}
               </div>
