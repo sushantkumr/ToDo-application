@@ -8,6 +8,7 @@ from .tasks import printer
 def home(request):
     messages.info(request, f'Alert: TITLE is due in X hours')
     # job = printer.delay(int(4))
+    every_time()
     return render(request, 'task/home.html')
 
 
