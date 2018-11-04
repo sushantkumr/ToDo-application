@@ -1,14 +1,12 @@
 from django.shortcuts import render
 from django.contrib import messages
-from celery.schedules import crontab
-from celery.task import periodic_task
-from .tasks import printer
+from background_task import background
+from background_task.models import Task
 
 
 def home(request):
     messages.info(request, f'Alert: TITLE is due in X hours')
-    # job = printer.delay(int(4))
-    every_time()
+    hard_delete_records(repeat=Task.EVERY_2_WEEKS)
     return render(request, 'task/home.html')
 
 
@@ -20,6 +18,6 @@ def create_task(request, id=None):
     return render(request, 'task/newTask.html')
 
 
-@periodic_task(run_every=crontab(hour=0, minute=1))
-def every_time():
-    print("This is run every Monday morning at 7:30")
+@background(schedule=1)  # Delete subsequent every day
+def hard_delete_records():
+    print("hello world")

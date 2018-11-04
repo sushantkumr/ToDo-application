@@ -1,6 +1,8 @@
-from celery import shared_task, current_task
+from background_task import background
 
 
-@shared_task
-def printer(n):
-    print("hello world 12345")
+@background(schedule=1)  # Delete subsequent every day
+def hard_delete_records():
+    print("hello world")
+    # queryset = TodoTask.objects.filter(deleted=True)
+    # queryset.delete()

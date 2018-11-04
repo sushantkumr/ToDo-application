@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import djcelery
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,8 +31,8 @@ ALLOWED_HOSTS = ['0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
-    'djcelery',
     'tastypie',
+    'background_task',
     'task.apps.TaskConfig',
     'frontend.apps.FrontendConfig',
     'django.contrib.admin',
@@ -44,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-djcelery.setup_loader()
-BROKER_URL = "django://"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +123,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+BACKGROUND_TASK_RUN_ASYNC = True

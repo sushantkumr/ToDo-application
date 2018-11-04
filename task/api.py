@@ -1,4 +1,4 @@
-from task.models import Task
+from task.models import TodoTask
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.api import Api
@@ -25,7 +25,7 @@ class UpdateValidation(Validation):
 # http://0.0.0.0:8080/api/v1/task/?title__contains=Qwerty&period=overdue
 class TaskResource(ModelResource):
     class Meta:
-        queryset = Task.objects.order_by('due_date').filter(deleted=False)
+        queryset = TodoTask.objects.order_by('due_date').filter(deleted=False)
         authorization = Authorization()
         allowed_methods = ['get', 'post', 'put']
         limit = 50
@@ -69,7 +69,7 @@ class CreateTaskResource(ModelResource):
     parent_task_id_id = fields.ToOneField('self', 'id', null=True, full=True)
 
     class Meta:
-        queryset = Task.objects.all()
+        queryset = TodoTask.objects.all()
         authorization = Authorization()
         allowed_methods = ['post', 'get']
         resource_name = "create_task"
