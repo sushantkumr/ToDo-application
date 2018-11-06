@@ -1,11 +1,13 @@
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
+import pytz
 
 
 BASE_URL = "http://0.0.0.0:8000/"
 
-UNIQUE_TITLE = str(datetime.now())
+tz = pytz.timezone('Asia/Kolkata')
+UNIQUE_TITLE = 'TITLE ' + str(datetime.now(tz).time())
 
 
 def test_create_task():
@@ -15,29 +17,52 @@ def test_create_task():
         'alert_time': '01:00'
     }
 
-    payload['due_date'] = '2018-11-12 01:02:01'
+    payload['due_date'] = str(datetime.now(tz) + timedelta(days=7))
     response = requests.post(BASE_URL + "api/v1/task/", json=payload)
-    assert response.status_code == 201
+    assert (response.status_code == 201)
 
 
-def test_create_task_fail_no_title():
+def test_create_task_fail_repeat_title():
     payload = {
+        'title': UNIQUE_TITLE,
         'description': 'Few words',
         'alert_time': '01:00'
     }
 
-    payload['due_date'] = '2018-11-12 01:02:01'
+    payload['due_date'] = str(datetime.now(tz) + timedelta(days=7))
     response = requests.post(BASE_URL + "api/v1/task/", json=payload)
-    assert response.status_code == 500
+    assert (response.status_code == 500)
+
+
+def test_create_task_fail_no_duedate():
+    payload = {
+        'title': UNIQUE_TITLE + '1',
+        'description': 'Few words',
+        'alert_time': '01:00'
+    }
+
+    response = requests.post(BASE_URL + "api/v1/task/", json=payload)
+    assert (response.status_code == 500)
 
 
 def test_get_task_with_title():
+    payload_another_task = {
+        'title': UNIQUE_TITLE + ' Task 2',
+        'description': 'Few words',
+        'alert_time': '01:00'
+    }
+
+    payload_another_task['due_date'] = str(datetime.now(tz) + timedelta(days=7))
+    response = requests.post(BASE_URL + "api/v1/task/", json=payload_another_task)
+
     payload = {
         'title': UNIQUE_TITLE
     }
 
-    response = requests.get(BASE_URL + "api/v1/task/", json=payload)
-    assert response.status_code == 200
+    response = requests.get(BASE_URL + "api/v1/task/", params=payload)
+    task_details = json.loads(response.text)
+    title = task_details['objects'][0]['title']
+    assert (title == UNIQUE_TITLE)
 
 
 def test_get_task_containing_pattern_in_title():
@@ -45,17 +70,22 @@ def test_get_task_containing_pattern_in_title():
         'title__contains': UNIQUE_TITLE
     }
 
-    response = requests.get(BASE_URL + "api/v1/task/", json=payload)
-    assert response.status_code == 200
+    response = requests.get(BASE_URL + "api/v1/task/", params=payload)
+    details = json.loads(response.text)
+    count = details['meta']['total_count']
+
+    assert (count == 2)
 
 
 def test_get_particular_task():
-    task = requests.get(BASE_URL + "api/v1/task/", json={'title': UNIQUE_TITLE})
+    task = requests.get(BASE_URL + "api/v1/task/", params={'title': UNIQUE_TITLE})
     task_details = json.loads(task.text)
     task_id = task_details['objects'][0]['id']
 
     response = requests.get(BASE_URL + "api/v1/task/" + str(task_id) + "/")
-    assert response.status_code == 200
+    task_details = (json.loads(response.text))
+    title = task_details['title']
+    assert (title == UNIQUE_TITLE)
 
 
 def test_get_task_fail():
@@ -69,7 +99,7 @@ def test_get_all_tasks():
 
 
 def test_update_task_to_completed():
-    task = requests.get(BASE_URL + "api/v1/task/", json={'title': UNIQUE_TITLE})
+    task = requests.get(BASE_URL + "api/v1/task/", params={'title': UNIQUE_TITLE})
     task_details = json.loads(task.text)
     task_id = task_details['objects'][0]['id']
 
@@ -81,7 +111,7 @@ def test_update_task_to_completed():
 
 
 def test_update_task_to_pending():
-    task = requests.get(BASE_URL + "api/v1/task/", json={'title': UNIQUE_TITLE})
+    task = requests.get(BASE_URL + "api/v1/task/", params={'title': UNIQUE_TITLE})
     task_details = json.loads(task.text)
     task_id = task_details['objects'][0]['id']
 
@@ -93,9 +123,10 @@ def test_update_task_to_pending():
 
 
 def test_soft_delete_task():
-    task = requests.get(BASE_URL + "api/v1/task/", json={'title': UNIQUE_TITLE})
+    task = requests.get(BASE_URL + "api/v1/task/", params={'title': UNIQUE_TITLE})
     task_details = json.loads(task.text)
     task_id = task_details['objects'][0]['id']
+    print(task_details['objects'][0])
 
     payload = {
         'deleted': 'True'

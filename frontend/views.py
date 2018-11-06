@@ -35,7 +35,7 @@ def alerts_for_tasks(request):
     now = datetime.now(tz)
 
     for task in queryset:
-        alert_period = task.due_date - \
+        alert_period = task.due_date.astimezone(tz) - \
             timedelta(hours=task.alert_time.hour, minutes=task.alert_time.minute)
         if now > alert_period:
-            messages.info(request, f'Alert: {task.title} is due at {task.due_date}')
+            messages.info(request, f'Alert: {task.title} is due at {task.due_date.astimezone(tz)}')
