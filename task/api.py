@@ -2,8 +2,7 @@ from task.models import TodoTask
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.api import Api
-from tastypie.validation import Validation
-from tastypie import fields
+# from tastypie import fields
 from django.utils import timezone
 from datetime import datetime, timedelta
 
@@ -21,6 +20,7 @@ from datetime import datetime, timedelta
 # Gets list of tasks and to search based on title and different time periods
 class TaskResource(ModelResource):
     class Meta:
+        # parent_task_id_id = fields.ToOneField('self', 'id', null=True)
         queryset = TodoTask.objects.order_by('due_date').filter(deleted=False)
         authorization = Authorization()
         allowed_methods = ['get', 'post', 'put']
@@ -59,17 +59,5 @@ class TaskResource(ModelResource):
             return super(TaskResource, self).get_object_list(request)
 
 
-# Creating sub tasks for a particular task
-class CreateTaskResource(ModelResource):
-    parent_task_id_id = fields.ToOneField('self', 'id', null=True)
-
-    class Meta:
-        queryset = TodoTask.objects.all()
-        authorization = Authorization()
-        allowed_methods = ['post', 'get']
-        resource_name = "create_task"
-
-
 v1_api = Api(api_name='v1')
 v1_api.register(TaskResource())
-v1_api.register(CreateTaskResource())
