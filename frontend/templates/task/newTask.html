@@ -19,26 +19,35 @@
   {% endif %}
   <div class="ui grid">
       <div class="six wide column">
-        <form id="newTask" class="ui form" action="" method="post">
+        <form id="newTask" class="ui form" method="post">
           {% csrf_token %}
-          <div class="field">
+          <div class="field required">
             <label>Title</label>
-            <input type="text" name="title" placeholder="Title">
+            <input type="text" name="title" placeholder="Title" required>
           </div>
           <div class="field">
             <label>Description</label>
             <input type="text" name="description" placeholder="Description">
           </div>
-          <div class="field">
+          <div class="field required">
             <label>Due Date</label>
-            <input type="datetime-local" name="dueDate" placeholder="Due date">
+            <input type="datetime-local" name="dueDate" placeholder="Due date" required>
           </div>
-          <div class="field">
+          <div class="field required">
             <label>Alert before <small>(In HH:MM)</small></label>
-            <input type="time" name="alertTime" placeholder="Alert before">
+            <input type="time" name="alertTime" placeholder="Alert before" required> 
           </div>
           <button class="ui button" onclick="onSubmit(event)">Submit</button>
         </form>
+        <div id="errorMessage" class="ui error message hidden">
+          <div class="header">
+            There were some errors with your submission
+          </div>
+          <ul class="list">
+            <li>You must specify a unique title</li>
+            <li>Title, Due date and Alert times are mandatory</li>
+          </ul>
+        </div>
       </div>
   </div>
 </body>

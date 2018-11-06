@@ -61,8 +61,7 @@ class TaskResource(ModelResource):
 
 # Creating sub tasks for a particular task
 class CreateTaskResource(ModelResource):
-    id = fields.ToManyField('self', 'parent_task_id', null=True, full=True)
-    parent_task_id_id = fields.ToOneField('self', 'id', null=True, full=True)
+    parent_task_id_id = fields.ToOneField('self', 'id', null=True)
 
     class Meta:
         queryset = TodoTask.objects.all()

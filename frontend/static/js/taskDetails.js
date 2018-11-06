@@ -107,9 +107,7 @@ function getSubTasks() {
             if (response.objects) {
                 $.each(response.objects, function (i, item) {
                     let aTag = document.createElement('a');
-                    console.log(item);
                     aTag.classList.add('ui', 'card');
-                    /*aTag.target = "_blank";*/
                     aTag.href = "/task_details/" + item.id;
 
                     let firstDivContent = document.createElement('div');

@@ -29,6 +29,7 @@ function onSubmit(event) {
             }
         },
         error: function(a, b, c) {
+            document.getElementById("errorMessage").classList.remove('hidden')
             console.log(a, b, c);
         }
     });	

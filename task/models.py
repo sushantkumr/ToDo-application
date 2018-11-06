@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class TodoTask(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     due_date = models.DateTimeField()
     alert_time = models.TimeField()
