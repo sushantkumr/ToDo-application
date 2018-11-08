@@ -8,8 +8,8 @@ A simple app to create tasks with due dates and alerts.
 * Run `pip3 install -r requirements.txt` inside the repo root
 * Run the following commands
 	` python3 manage.py makemigrations
-	  python manage.py migrate`
-* To start the server, run `python manage.py runserver`
+	  python3 manage.py migrate`
+* To start the server, run `python3 manage.py runserver`
 
 ### Directions to use the app
 * Home page displays the tasks created by the user.
