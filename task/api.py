@@ -20,7 +20,7 @@ from datetime import datetime, timedelta
 # Gets list of tasks and to search based on title and different time periods
 class TaskResource(ModelResource):
     class Meta:
-        # parent_task_id_id = fields.ToOneField('self', 'id', null=True)
+        # parent_task_id = fields.ForeignKey('self', 'id', null=True)
         queryset = TodoTask.objects.order_by('due_date').filter(deleted=False)
         authorization = Authorization()
         allowed_methods = ['get', 'post', 'put']

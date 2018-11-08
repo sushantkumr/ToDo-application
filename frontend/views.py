@@ -25,7 +25,8 @@ def create_task(request, id=None):
 @background(schedule=1209600)
 def hard_delete_records():
     print("Deleted records")
-    queryset = TodoTask.objects.filter(deleted=True)
+    one_month_ago = datetime.now() - timedelta(days=30)
+    queryset = TodoTask.objects.filter(deleted=True).filter(due_date__lte=one_month_ago)
     queryset.delete()
 
 
