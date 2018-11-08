@@ -27,7 +27,7 @@ payload_task_2 = {
     'alert_time': '01:00'
 }
 
-payload_task_2['due_date'] = str(datetime.now(tz) + timedelta(days=days_till_sunday))
+payload_task_2['due_date'] = str(datetime.now(tz) + timedelta(days=days_till_sunday - 1))
 response = requests.post(BASE_URL + "api/v1/task/", json=payload_task_2)
 
 
@@ -64,7 +64,8 @@ def test_search_period_today():
 
 def test_search_period_thisweek():
     payload = {
-        'period': 'thisweek'
+        'period': 'thisweek',
+        'title__contains': ' thisweek'
     }
     response = requests.get(BASE_URL + "api/v1/task/", params=payload)
     details = json.loads(response.text)
