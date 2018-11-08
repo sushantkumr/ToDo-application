@@ -17,6 +17,7 @@
   {% else %}
     <h3>Create a new Task</h3>
   {% endif %}
+  <a href="{% url 'home' %}"><button class="ui button primary right floated">Home</button></a>
   <div class="ui grid">
       <div class="six wide column">
         <form id="newTask" class="ui form" method="post">
