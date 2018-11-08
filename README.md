@@ -6,7 +6,7 @@ A simple app to create tasks with due dates and alerts.
 ### To install the app:
 * Clone the repo
 * Run `pip3 install -r requirements.txt` inside the repo root
-* Run the following commands
+* Run the following commands inside the repo root
 	` python3 manage.py makemigrations
 	  python3 manage.py migrate`
 * To start the server, run `python3 manage.py runserver`
