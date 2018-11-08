@@ -85,7 +85,6 @@ function toggleTaskStatus() {
 }
 
 function getSubTasks() {
-    console.log("hello world")
     /*const taskId = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') +1 )*/
     subTaskNode = document.getElementById('subTasks');
     subTaskNode.innerHTML = '';
