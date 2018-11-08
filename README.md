@@ -1,7 +1,7 @@
 # ToDo-application
 Task generator and reminder application using Django
 
-A simple app to create tasks with due dates and alerts.
+A simple app to create tasks with due dates and alerts
 
 ### To install the app:
 * Clone the repo
@@ -12,9 +12,9 @@ A simple app to create tasks with due dates and alerts.
 * To start the server, run `python3 manage.py runserver`
 
 ### Directions to use the app
-* Home page displays the tasks created by the user.
+* Home page displays the tasks created by the user
 * To create a new task, click on `New Task`
-* Enter the details. Title, Due date and alert time are mandatory.
+* Enter the details. Title, Due date and alert time are mandatory
 * If task is created successfully then user will be redirected to home page
 * To view the task details click on the task card
 * Options available in the task details page are to
@@ -23,3 +23,6 @@ A simple app to create tasks with due dates and alerts.
 	* Create sub tasks for the task
 * To search for tasks based on `title` enter the title in the search bar in the Home page
 * To search for tasks based on `period` select the period from the dropdown in the Home page
+
+#### To run tests
+* Start the server using `python manage.py runserver 0.0.0.0:8000` and then run `pytest` in another terminal while in repo root
