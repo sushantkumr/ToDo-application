@@ -10,6 +10,7 @@ A simple app to create tasks with due dates and alerts
 	` python3 manage.py makemigrations
 	  python3 manage.py migrate`
 * To start the server, run `python3 manage.py runserver`
+* To run the background tasks in the project root, run `python manage.py process_tasks`
 
 ### Directions to use the app
 * Home page displays the tasks created by the user
